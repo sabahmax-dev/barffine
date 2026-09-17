@@ -22,9 +22,9 @@ Barffine is an [AFFiNE](https://github.com/toeverything/AFFiNE) compatible backe
 
 If you prefer containers over a local Rust toolchain, use the published image at `ghcr.io/greyelaina/barffine`:
 
-1. Pull the image (update the tag if you need a specific release):
+1. Pull the image (choose a published branch, `v*`, or SHA tag; the workflow does not publish `latest`):
    ```shell
-   docker pull ghcr.io/greyelaina/barffine:latest
+   docker pull ghcr.io/greyelaina/barffine:<tag>
    ```
 2. Prepare a `.env` file (see below) and a data directory on the host for the SQLite + doc-data files, then start the container:
    ```shell
@@ -33,7 +33,7 @@ If you prefer containers over a local Rust toolchain, use the published image at
      -p 8081:8081 \
      --env-file .env \
      -v $(pwd)/data:/app/data \
-     ghcr.io/greyelaina/barffine:latest
+     ghcr.io/greyelaina/barffine:<tag>
    ```
    The example mounts `./data`, which now contains both `barffine.db` and the RocksDB column families under `data/doc-kv`. Adjust the port mapping when reverse proxies or different hosts are involved, and make sure the host volume has enough inodes/space for the additional KV files.
 3. Use `docker logs -f barffine` to monitor startup and reuse the operational commands below via `docker exec barffine <command>` when needed.
